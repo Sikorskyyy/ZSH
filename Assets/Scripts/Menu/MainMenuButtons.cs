@@ -14,7 +14,7 @@ public class MainMenuButtons : MonoBehaviour {
     {		
 
 		//new secure player data init!!!
-		PlayerData.NewPlayerData();
+	//	PlayerData.NewPlayerData();
 		//leadBoard = new LiderBoard ();
       /*  if(PlayerPrefs.GetString("music") != "off")
         {
