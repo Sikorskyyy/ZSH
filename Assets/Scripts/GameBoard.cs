@@ -54,6 +54,11 @@ public class GameBoard : MonoBehaviour
 
     public int level{ get; private set;}
 
+    public bool isTip = false;
+
+    int TimerBonusCount = 3;
+    int TipsCount = 3;
+
     #region unity Lifecycle
 
     void Start()
@@ -70,7 +75,6 @@ public class GameBoard : MonoBehaviour
             cards[i].Cat = cats[i];
         }
             
-        level++;
         Reset();
     }
 
@@ -118,8 +122,10 @@ public class GameBoard : MonoBehaviour
 
                 if (!CatExists(color, accessory))
                 {
-                    generatedCat = new Cat { Color = color, Accessory = accessory };
+                    generatedCat = new Cat { Color = color, Accessory = accessory, id = i };
+
                 }
+
             }
 
             cats[i] = generatedCat;
@@ -131,6 +137,22 @@ public class GameBoard : MonoBehaviour
     {
         return System.Array.FindIndex(cats, cat => null != cat && cat.Color == color && cat.Accessory == accessory) >= 0;
     }
+
+
+    Card OpenPair (Card compareCard)
+    {
+        var id = compareCard.Cat.id;
+
+        var indexPairCard = System.Array.FindIndex(cards, card => card.Cat.id == id 
+            && card != compareCard); 
+        var pairCard = cards[indexPairCard];
+
+        pairCard.FlipVisible();
+
+        return pairCard;
+
+    }
+
 
     private void Shuffle(Cat[] items)
     {
@@ -148,7 +170,15 @@ public class GameBoard : MonoBehaviour
         if (null == selectedCard)
         {
             selectedCard = card;
-            return;
+            if (isTip)
+            {
+               card  = OpenPair(selectedCard);
+                isTip = false;
+            }
+            else
+            {
+                return;
+            }
         }
 
         eventSystem.enabled = false;
@@ -156,6 +186,25 @@ public class GameBoard : MonoBehaviour
                 {
                     CompareCards(card);
                 }));
+    }
+
+    public void UseTip()
+    {
+        if (TipsCount > 0)
+        {
+            isTip = true;
+            TipsCount--;
+        }
+    }
+
+    public void UseTimerBonus()
+    {
+        if (TimerBonusCount > 0)
+        {
+            time += 20;
+            timerBar.value += 20 * TIMEBAR_SCALE;
+            TimerBonusCount--;
+        }
     }
 
     private void CompareCards(Card card)
@@ -193,7 +242,8 @@ public class GameBoard : MonoBehaviour
         if (pairsFound >= cards.Length / 2)
         {
             nextLevel.Invoke(boardKey, time);
-            GameCanvasAnimator.SetBool(GAME_OVER_ANIMATOR_CONDITION, false);//nextLevel
+            GameCanvasAnimator.SetBool(GAME_OVER_ANIMATOR_CONDITION, false);
+            level++;//nextLevel
         }
     }
 
@@ -211,6 +261,9 @@ public class GameBoard : MonoBehaviour
         timerBar.value = timerBar.maxValue;
         UpdateTimer(); 
         isUpadate = true;
+
+        TimerBonusCount = 3;
+        TipsCount = 3;
     }
 
     private void UpdateTimer()

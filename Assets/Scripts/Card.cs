@@ -44,12 +44,17 @@ public class Card : MonoBehaviour
         }
     }
 
+    public void FlipVisible()
+    {
+            visible = true;
+            animator.SetTrigger("Flip");
+    }
+
     public void OnCardClicked()
     {
         if (!visible)
         {
-            visible = true;
-            animator.SetTrigger("Flip");
+            FlipVisible();
             cardVisible.Invoke(this);
         }
     }

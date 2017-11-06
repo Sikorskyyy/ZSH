@@ -26,7 +26,6 @@ public class OnEnterStateBehaviour : StateMachineBehaviour
         {
             return;
         }
-        Debug.Log(eventByState.StateName);
 
      	eventByState.Action.Invoke();
     }
