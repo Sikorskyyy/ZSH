@@ -54,6 +54,7 @@
      <Compile Include="Assets\Scripts\ActionAfterDelay.cs" />
      <Compile Include="Assets\Scripts\AnimatorScripts\EventByAnimatorStateManager.cs" />
      <Compile Include="Assets\Scripts\AnimatorScripts\OnEnterStateBehaviour.cs" />
+     <Compile Include="Assets\Scripts\AudioManager.cs" />
      <Compile Include="Assets\Scripts\Card.cs" />
      <Compile Include="Assets\Scripts\Cat.cs" />
      <Compile Include="Assets\Scripts\CustomEvents.cs" />
@@ -65,6 +66,10 @@
      <Compile Include="Assets\Scripts\LeaderboardEntry.cs" />
      <Compile Include="Assets\Scripts\LeaderboardItem.cs" />
      <Compile Include="Assets\Scripts\LeaderboardScrollList.cs" />
+     <Compile Include="Assets\Scripts\Managers\AdManager.cs" />
+     <Compile Include="Assets\Scripts\Managers\APIController.cs" />
+     <Compile Include="Assets\Scripts\Managers\LiderBoard.cs" />
+     <Compile Include="Assets\Scripts\Menu\MainMenuButtons.cs" />
      <Compile Include="Assets\Scripts\RandomSpritePicker.cs" />
      <Compile Include="Assets\Scripts\WinMessage.cs" />
  <Reference Include="UnityEngine.UI">

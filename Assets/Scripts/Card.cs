@@ -29,8 +29,8 @@ public class Card : MonoBehaviour
         {
             cat = value;
             catColor.sprite = cat.Color;
-            catAccessory.sprite = cat.Accessory;
-            catAccessory.gameObject.SetActive(null != cat.Accessory);
+            //catAccessory.sprite = cat.Accessory;
+            //catAccessory.gameObject.SetActive(null != cat.Accessory);
             visible = false;
         }
     }

@@ -30,3 +30,5 @@ C:\Users\sikorskyyy\Desktop\Meowmory-12\Meowmory-master\Temp\bin\Debug\UnityEngi
 C:\Users\sikorskyyy\Desktop\Meowmory-12\Meowmory-master\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
 C:\Users\sikorskyyy\Desktop\Meowmory-12\Meowmory-master\obj\Debug\Assembly-CSharp.dll
 C:\Users\sikorskyyy\Desktop\Meowmory-12\Meowmory-master\obj\Debug\Assembly-CSharp.pdb
+C:\Users\sikorskyyy\Documents\GitHub\ZSH\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
+C:\Users\sikorskyyy\Documents\GitHub\ZSH\obj\Debug\Assembly-CSharp.dll
