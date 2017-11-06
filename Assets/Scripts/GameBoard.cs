@@ -17,7 +17,9 @@ public class GameBoard : MonoBehaviour
     private RandomSpritePicker accessoryPicker;
 
     [SerializeField]
-    private Text movesCount;
+    private Text timerCount;
+
+    [SerializeField] Slider timerBar;
 
     [SerializeField]
     private Text newMovesCount;
@@ -28,13 +30,36 @@ public class GameBoard : MonoBehaviour
     [SerializeField]
     private EventSystem eventSystem;
 
+    [SerializeField] Animator GameCanvasAnimator;
+
     [SerializeField]
-    private CustomEvents.UnityStringIntEvent gameEnd;
+    private CustomEvents.UnityStringIntEvent nextLevel;
+
+    [SerializeField]
+    private CustomEvents.UnityStringIntEvent gameOver;
+
+    string GAME_OVER_ANIMATOR_CONDITION = "isGameOver";
+
+    bool isUpadate;
 
     private Cat[] cats;
     private Card selectedCard;
     private int pairsFound;
-    private int moves;
+    private int time;
+    float deltaTime;
+
+    int MAX_TIME = 100;
+
+    float TIMEBAR_SCALE;
+
+    public int level{ get; private set;}
+
+    #region unity Lifecycle
+
+    void Start()
+    {
+        level = 0;
+    }
 
     private void OnEnable()
     {
@@ -44,12 +69,39 @@ public class GameBoard : MonoBehaviour
         {
             cards[i].Cat = cats[i];
         }
-
-        selectedCard = null;
-        pairsFound = 0;
-        moves = 0;
-        UpdateMovesCount();
+            
+        level++;
+        Reset();
     }
+
+
+    void Update()
+    {
+        if (isUpadate)
+        {
+            
+            if (deltaTime >= 1)
+            {
+                deltaTime = 0;
+                UpdateTimer();
+
+                if (time == 0)
+                {
+                    ToGameOver();
+                    //nextLevel.Invoke(boardKey, time);
+                    //GameCanvasAnimator.SetBool(GAME_OVER_ANIMATOR_CONDITION, false);//nextLevel
+                    isUpadate = false;
+                }
+                time--;
+            }
+	
+            timerBar.value -= Time.deltaTime * TIMEBAR_SCALE;
+            deltaTime += Time.deltaTime;
+        }
+    }
+
+    #endregion
+
 
     private void GenerateCats()
     {
@@ -77,7 +129,7 @@ public class GameBoard : MonoBehaviour
 
     private bool CatExists(Sprite color, Sprite accessory)
     {
-        return System.Array.FindIndex(cats, cat => null != cat && cat.Color == color &&cat.Accessory == accessory) >= 0;
+        return System.Array.FindIndex(cats, cat => null != cat && cat.Color == color && cat.Accessory == accessory) >= 0;
     }
 
     private void Shuffle(Cat[] items)
@@ -100,13 +152,16 @@ public class GameBoard : MonoBehaviour
         }
 
         eventSystem.enabled = false;
-        StartCoroutine(ActionAfterDelay.DoAfterDelay(0.5f, () => { CompareCards(card); }));
+        StartCoroutine(ActionAfterDelay.DoAfterDelay(0.5f, () =>
+                {
+                    CompareCards(card);
+                }));
     }
 
     private void CompareCards(Card card)
     {
-        moves++;
-        UpdateMovesCount();
+        // moves++;
+        //UpdateTimer();
 
         if (card.Cat != selectedCard.Cat)
         {
@@ -124,25 +179,51 @@ public class GameBoard : MonoBehaviour
         eventSystem.enabled = true;
     }
 
+
+    void ToGameOver()
+    {
+        gameOver.Invoke(boardKey, time);
+        GameCanvasAnimator.SetBool(GAME_OVER_ANIMATOR_CONDITION, true);
+        level =  0;
+    }
+
+
     private void CheckGameEnd()
     {
         if (pairsFound >= cards.Length / 2)
         {
-            gameEnd.Invoke(boardKey, moves);
+            nextLevel.Invoke(boardKey, time);
+            GameCanvasAnimator.SetBool(GAME_OVER_ANIMATOR_CONDITION, false);//nextLevel
         }
     }
 
-    private void UpdateMovesCount()
+    void Reset()
     {
-        if (moves == 0)
+        selectedCard = null;
+
+        GameCanvasAnimator.SetBool(GAME_OVER_ANIMATOR_CONDITION, true);
+
+        pairsFound = 0;
+
+        time = MAX_TIME - level * 10;
+
+        TIMEBAR_SCALE = 100 / MAX_TIME; 
+        timerBar.value = timerBar.maxValue;
+        UpdateTimer(); 
+        isUpadate = true;
+    }
+
+    private void UpdateTimer()
+    {
+        if (time == MAX_TIME)
         {
-            movesCount.text = moves.ToString();
-            newMovesCount.text = moves.ToString();
+            timerCount.text = time.ToString();
+            newMovesCount.text = time.ToString();
             return;
         }
 
-        newMovesCount.text = moves.ToString();
-        movesCount.text = (moves - 1).ToString();
+        newMovesCount.text = time.ToString();
+        timerCount.text = (time).ToString();
         movesCountAnimator.SetTrigger("UpdateMovesCount");
     }
 }

@@ -23,6 +23,8 @@ public class WinMessage : MonoBehaviour
     private int moves;
     private string boardKey;
 
+	#region GameOver
+
     public void Show(string board, int movesCount)
     {
         moves = movesCount;
@@ -35,7 +37,6 @@ public class WinMessage : MonoBehaviour
         {
             highScore[i].SetActive(isHighScore);
         }
-        nameInput.text = string.Empty;
         
         gameObject.SetActive(true);
     }
@@ -44,18 +45,14 @@ public class WinMessage : MonoBehaviour
     {
         if (isHighScore)
         {
-            nameInput.text = nameInput.text
-                .Replace(";", string.Empty)
-                .Replace(",", string.Empty);
-
-            if (string.Empty == nameInput.text)
-            {
-                return;
-            }
             LeaderboardDataManager.SaveScore(boardKey, moves, nameInput.text);
         }
         hideWinMessage.Invoke();
     }
+
+	#endregion
+
+
 
     public void NameChanged(string value)
     {

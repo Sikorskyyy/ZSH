@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{394BC0EA-135B-ACD5-44C2-D8FF3D78E45E}</ProjectGuid>
+    <ProjectGuid>{A948B15C-FAEA-CEA7-FA56-42B7695F74CB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -58,6 +58,7 @@
      <Compile Include="Assets\Scripts\Cat.cs" />
      <Compile Include="Assets\Scripts\CustomEvents.cs" />
      <Compile Include="Assets\Scripts\GameBoard.cs" />
+     <Compile Include="Assets\Scripts\GameOver.cs" />
      <Compile Include="Assets\Scripts\InfiniteScrollList\InfiniteScrollListItem.cs" />
      <Compile Include="Assets\Scripts\InfiniteScrollList\InfiniteScrollListManager.cs" />
      <Compile Include="Assets\Scripts\LeaderboardDataManager.cs" />
