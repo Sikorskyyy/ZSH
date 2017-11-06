@@ -4,7 +4,10 @@ public class RandomSpritePicker : MonoBehaviour
 {
     [SerializeField]
     private Sprite[] sprites;
+    [SerializeField]
+    private Sprite[] subSprites;
 
+    int lastIndex;
     public Sprite Pick()
     {
         if (null == sprites || 0 == sprites.Length)
@@ -13,7 +16,12 @@ public class RandomSpritePicker : MonoBehaviour
             return null;
         }
 
-        var index = Random.Range(0, sprites.Length);
-        return sprites[index];
+        lastIndex = Random.Range(0, sprites.Length);
+        return sprites[lastIndex];
+    }
+
+    public Sprite GetSubPicture()
+    {
+       return subSprites[lastIndex];
     }
 }

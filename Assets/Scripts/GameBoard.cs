@@ -114,28 +114,30 @@ public class GameBoard : MonoBehaviour
         for (var i = 0; i < cats.Length; i += 2)
         {
             Cat generatedCat = null;
-
+            Cat subCat = null;
             while (null == generatedCat)
             {
                 var color = colorPicker.Pick();
-                var accessory = accessoryPicker.Pick();
+                //var accessory = accessoryPicker.Pick();
 
-                if (!CatExists(color, accessory))
+                if (!CatExists(color))
                 {
-                    generatedCat = new Cat { Color = color, Accessory = accessory, id = i };
+                    generatedCat = new Cat { Color = color, /*Accessory = accessory,*/ id = i };
 
+                    color = colorPicker.GetSubPicture();
+                    subCat = new Cat { Color = color, /*Accessory = accessory,*/ id = i };
                 }
-
+                    
             }
 
             cats[i] = generatedCat;
-            cats[i + 1] = generatedCat;
+            cats[i + 1] = subCat;
         }
     }
 
-    private bool CatExists(Sprite color, Sprite accessory)
+    private bool CatExists(Sprite color)
     {
-        return System.Array.FindIndex(cats, cat => null != cat && cat.Color == color && cat.Accessory == accessory) >= 0;
+        return System.Array.FindIndex(cats, cat => null != cat && cat.Color == color) >= 0;
     }
 
 
@@ -212,7 +214,7 @@ public class GameBoard : MonoBehaviour
         // moves++;
         //UpdateTimer();
 
-        if (card.Cat != selectedCard.Cat)
+        if (card.Cat.id != selectedCard.Cat.id)
         {
             card.FlipHidden();
             selectedCard.FlipHidden();
