@@ -1,50 +1,65 @@
-﻿/*using System.Collections;
+﻿using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Advertisements;
-using Assets.Scripts.Common;
 
-public class AdManager {
+
+public class AdManager
+{
 	
-	private string gameId = "1399670";
+    private string gameId = "1599369";
 
-	public string placementId = "rewardedVideo";
+    public string placementId = "rewardedVideo";
 
-	public static AdManager Instance; 
+    public static AdManager Instance;
 
-		public AdManager ()
-		{    
-			Instance = this;
+    bool isShowed;
 
-			if (Advertisement.isSupported &&!Advertisement.isInitialized ) {
-				Advertisement.Initialize (gameId, false);
-			}
-			bonusText = BonusText.instance;
-			
-		}
+    public AdManager()
+    {    
+        Instance = this;
 
-		public void ShowAd ()
-		{
-			if (Advertisement.IsReady (placementId)) {
-				ShowOptions options = new ShowOptions ();
-				options.resultCallback = HandleShowResult;
-				Advertisement.Show (placementId, options);
-			}
-		}
-		
+        if (Advertisement.isSupported && !Advertisement.isInitialized)
+        {
+            Advertisement.Initialize(gameId, false);
+        }
+    }
 
-		void HandleShowResult (ShowResult result)
-		{
-			if(result == ShowResult.Finished) 
+    public void ShowAdRewarded(Action callback)
+    {
+        if (Advertisement.IsReady(placementId))
+        {
+            ShowOptions options = new ShowOptions();
+            //options.resultCallback = HandleShowResult;
+            options.resultCallback = (ShowResult result) =>
             {
-                Debug.Log("Video completed - Offer a reward to the player");
-			}
-            else if(result == ShowResult.Skipped) {
-				Debug.LogWarning("Video was skipped - Do NOT reward the player");
+                HandleShowResult(result);
+                if (isShowed)
+                {
+                    callback();
+                    isShowed = false;
+                }
+            };
+            Advertisement.Show(placementId, options);
+        }
+    }
 
-			}else if(result == ShowResult.Failed) {
-				Debug.LogError("Video failed to show");
-			}
-		}
+    public void showAd()
+    {
+        if (Advertisement.IsReady())
+        {
+            Advertisement.Show();
+        }
+    }
+
+    void HandleShowResult(ShowResult result)
+    {
+        if (result == ShowResult.Finished)
+        {
+            Debug.Log("Video completed - Offer a reward to the player");
+            isShowed = true;
+        }
+    }
         
-}*/
+}

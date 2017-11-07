@@ -29,6 +29,7 @@ public class PlayerData : MonoBehaviour
             Score = 0;
         }
 
+
         if (PlayerPrefs.HasKey(TIMER_BONUS_KEY))
         {
             TimerBonusCount = GetTimerBonusCount();
@@ -38,6 +39,7 @@ public class PlayerData : MonoBehaviour
             TimerBonusCount = 0;
         }
 
+
         if (PlayerPrefs.HasKey(TIPS_KEY))
         {
             TipsCount = GetTipsCount();
@@ -46,9 +48,7 @@ public class PlayerData : MonoBehaviour
         {
             TipsCount = 0;
         }
-
-        SetTipsCount(5);
-        Debug.Log(GetTipsCount());
+            
     }
 
     public void SetScore (int score)
