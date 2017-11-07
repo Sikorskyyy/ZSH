@@ -97,15 +97,14 @@ public class GameBoard : MonoBehaviour
                 deltaTime = 0;
                 UpdateTimer();
 
-                if (time == 0 || StepsCount == 0)
+                if (time == 0)
                 {
                     ToGameOver();
                     /*nextLevel.Invoke(boardKey, time);
-                    GameCanvasAnimator.SetBool(GAME_OVER_ANIMATOR_CONDITION, false);//nextLevel
+                   //nextLevel
                    
                     level++;*/
 
-                    isUpadate = false;
                 }
                 time--;
             }
@@ -197,6 +196,11 @@ public class GameBoard : MonoBehaviour
         {
             StepsCount--;
             StepsCountTxt.text = StepsCount.ToString();
+
+            if (StepsCount == 0)
+            {
+                ToGameOver();
+            }
         }
 
         eventSystem.enabled = false;
@@ -255,8 +259,10 @@ public class GameBoard : MonoBehaviour
     void ToGameOver()
     {
         gameOver.Invoke(boardKey, time);
+        Debug.Log("dsdv");
         GameCanvasAnimator.SetBool(GAME_OVER_ANIMATOR_CONDITION, true);
-        level =  0;
+        level = 0;
+        isUpadate = false;
     }
 
 
@@ -279,7 +285,7 @@ public class GameBoard : MonoBehaviour
 
         pairsFound = 0;
 
-        TIMEBAR_SCALE = 100 / MAX_TIME; 
+        TIMEBAR_SCALE = 100 / time; 
         timerBar.value = timerBar.maxValue;
         UpdateTimer(); 
        // Debug.Break();
@@ -292,7 +298,7 @@ public class GameBoard : MonoBehaviour
         TipsCountTxt.text = TipsCount.ToString();
         LevelText.text = (level + 1).ToString();
 
-        StepsCount = 64 - level * 5;  
+        StepsCount = 50 - level * 5;  
         StepsCountTxt.text = StepsCount.ToString();
      }
 

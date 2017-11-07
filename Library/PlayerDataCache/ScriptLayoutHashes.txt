@@ -109,7 +109,7 @@ bc68edb0af574bf79f9550ead8ebae5c UnityEngine.HoloLens.dll:UnityEngine.Audio.Audi
 c2275a8bfbb9f9942cad75ecdfded41d UnityEngine.HoloLens.dll:UnityEngine.VR.WSA.SpatialMappingCollider
 45f3431f0103c41611e8d4eec3d439df UnityEngine.HoloLens.dll:UnityEngine.VR.WSA.SpatialMappingRenderer
 dcc1577c81f33f9e753b1fe53337d826 Assembly-CSharp.dll:.RandomSpritePicker
-c37a07af63927e9b6af3c02db6e4d451 Assembly-CSharp.dll:.GameBoard
+26a1e7df7993102d1404afbcd225066c Assembly-CSharp.dll:.GameBoard
 835b80357669dda59ee8abdd6cfff88b Assembly-CSharp.dll:.InfiniteScrollListManager
 a0eeac879803feb2d9a7308f683bb01b Assembly-CSharp.dll:.EventByAnimatorStateManager
 fc1e0f4d8439d9928083474691511a13 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkAnimator
@@ -156,3 +156,7 @@ a2205716825ec469d1261a4e1cadddf2 Assembly-CSharp-firstpass.dll:UnityEngine.Purch
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp-firstpass.dll:.IAPDemo
 43e0bb756dbd788930987fd144a47b68 Assembly-CSharp-firstpass.dll:UnityEngine.Purchasing.IAPListener
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp-firstpass.dll:UnityEngine.Purchasing.DemoInventory
+033a0e7f3e6e866fd4a2d78357e730e3 Assembly-CSharp.dll:.SoundButtons
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.WatchButtons
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.NoAdsButton
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.PlayerData
