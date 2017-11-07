@@ -6,10 +6,31 @@ using UnityEngine.SceneManagement;
 public class MainMenuButtons : MonoBehaviour {
 
     public string action;
+    //public GameObject m_on, m_off;
+	//private LiderBoard leadBoard;
+	//private AdManager adManager;
+	public static GameObject noAdBtn;
     private void Start()
     {		
 
-		/*if (action == "noAds") {
+		//new secure player data init!!!
+	//	PlayerData.NewPlayerData();
+		//leadBoard = new LiderBoard ();
+      /*  if(PlayerPrefs.GetString("music") != "off")
+        {
+            m_on.SetActive(true);
+            m_off.SetActive(false);
+        }
+        else
+        {
+            m_on.SetActive(false);
+            m_off.SetActive(true);
+        }
+
+		if (action == "watch")
+			adManager = new AdManager ();
+		
+		if (action == "noAds") {
 			noAdBtn = gameObject;
 			if (PlayerPrefs.HasKey ("NoAdsIsBuyed")) {///бля выключить рекламу не забудь поц))))
 				gameObject.SetActive (false);
@@ -35,21 +56,30 @@ public class MainMenuButtons : MonoBehaviour {
     {
         switch (action)
         {
-			
+			case "start":
+				SceneManager.LoadScene ("main");
+            break;
+
 			case "records":
 			//LiderBoard.OnShowLeaderBoard ();
+				Debug.Log ("rec");
 			break;
 
-		
-			
+			case "pers":
+				SceneManager.LoadScene ("PersSelection");
+			break;
 
-				/*case "watchTip":
+				case "pratein":
+					Application.OpenURL ("https://vk.com/no_pratein");
+				break;
+
+				case "watchTip":
 					//adManager.ShowAd ();
 				break;
 
                 case "watchTime":
                 //adManager.ShowAd ();
-                break;*/
+                break;
 
 				case "noAds":
 					/*if (APIController.instance == null) {

@@ -48,7 +48,7 @@ public class GameBoard : MonoBehaviour
     private int time;
     float deltaTime;
 
-    int MAX_TIME = 10;
+    int MAX_TIME = 100;
 
     float TIMEBAR_SCALE;
 
@@ -74,9 +74,7 @@ public class GameBoard : MonoBehaviour
         {
             cards[i].Cat = cats[i];
         }
-
-        time = MAX_TIME - level * 10;
-
+            
         Reset();
     }
 
@@ -93,11 +91,10 @@ public class GameBoard : MonoBehaviour
 
                 if (time == 0)
                 {
-                    //ToGameOver();
-                    nextLevel.Invoke(boardKey, time);
-                    GameCanvasAnimator.SetBool(GAME_OVER_ANIMATOR_CONDITION, false);//nextLevel
+                    ToGameOver();
+                    //nextLevel.Invoke(boardKey, time);
+                    //GameCanvasAnimator.SetBool(GAME_OVER_ANIMATOR_CONDITION, false);//nextLevel
                     isUpadate = false;
-                    level++;
                 }
                 time--;
             }
@@ -121,6 +118,7 @@ public class GameBoard : MonoBehaviour
             while (null == generatedCat)
             {
                 var color = colorPicker.Pick();
+                //var accessory = accessoryPicker.Pick();
 
                 if (!CatExists(color))
                 {
@@ -247,8 +245,7 @@ public class GameBoard : MonoBehaviour
         {
             nextLevel.Invoke(boardKey, time);
             GameCanvasAnimator.SetBool(GAME_OVER_ANIMATOR_CONDITION, false);
-            level++;
-            isUpadate = false;//nextLevel
+            level++;//nextLevel
         }
     }
 
@@ -260,21 +257,16 @@ public class GameBoard : MonoBehaviour
 
         pairsFound = 0;
 
+        time = MAX_TIME - level * 10;
+
         TIMEBAR_SCALE = 100 / MAX_TIME; 
         timerBar.value = timerBar.maxValue;
         UpdateTimer(); 
-       // Debug.Break();
         isUpadate = true;
 
         TimerBonusCount = 3;
         TipsCount = 3;
     }
-
-    public void Quit()
-    {
-        Reset();
-        level = 0;
-    } 
 
     private void UpdateTimer()
     {
