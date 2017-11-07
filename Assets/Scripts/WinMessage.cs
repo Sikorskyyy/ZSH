@@ -33,11 +33,11 @@ public class WinMessage : MonoBehaviour
         movesValue.text = moves.ToString();
 
         isHighScore = LeaderboardDataManager.IsHighScore(boardKey, moves);
-        for (var i = 0; i < highScore.Length; i++)
+        /* for (var i = 0; i < highScore.Length; i++)
         {
             highScore[i].SetActive(isHighScore);
-        }
-        
+        }*/
+
         gameObject.SetActive(true);
     }
 
@@ -45,17 +45,11 @@ public class WinMessage : MonoBehaviour
     {
         if (isHighScore)
         {
-            LeaderboardDataManager.SaveScore(boardKey, moves, nameInput.text);
+           // LeaderboardDataManager.SaveScore(boardKey, moves, nameInput.text);
         }
         hideWinMessage.Invoke();
     }
 
 	#endregion
 
-
-
-    public void NameChanged(string value)
-    {
-        highScoreOkButton.alpha = string.Empty == value ? 0.5f : 1f;
-    }
 }

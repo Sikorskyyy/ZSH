@@ -7,56 +7,40 @@ public class GameOver : MonoBehaviour
 {
 
     [SerializeField]
-    private Text movesValue;
+    private Text scoreText;
 
     [SerializeField]
-    private GameObject[] highScore;
-
-    [SerializeField]
-    private CanvasGroup highScoreOkButton;
+    private GameObject newRecord;
 
     [SerializeField]
     private UnityEvent hideWinMessage;
 
     private bool isHighScore;
-    private int moves;
+    private int score;
     private string boardKey;
 
     #region GameOver
 
-    public void Show(string board, int movesCount)
+    public void Show(string board, int isNewRecord)
     {
-        moves = movesCount;
         boardKey = board;
 
-        movesValue.text = moves.ToString();
+        scoreText.text = PlayerData.Instance.Score.ToString();
 
-        isHighScore = LeaderboardDataManager.IsHighScore(boardKey, moves);
-       /* for (var i = 0; i < highScore.Length; i++)
-        {
-            highScore[i].SetActive(isHighScore);
-        }*/
+        isHighScore = isNewRecord > 0;
 
+        Debug.Log("isHigh Score " + isHighScore.ToString());
+
+        newRecord.SetActive(isHighScore);
+       
         gameObject.SetActive(true);
     }
 
     public void Hide()
     {
-        if (isHighScore)
-        {
-
-            //LeaderboardDataManager.SaveScore(boardKey, moves, nameInput.text);
-        }
         hideWinMessage.Invoke();
     }
 
     #endregion
-
-
-
-    public void NameChanged(string value)
-    {
-        highScoreOkButton.alpha = string.Empty == value ? 0.5f : 1f;
-    }
-		
+ 
 }

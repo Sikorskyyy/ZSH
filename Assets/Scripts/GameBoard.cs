@@ -45,10 +45,10 @@ public class GameBoard : MonoBehaviour
     private Cat[] cats;
     private Card selectedCard;
     private int pairsFound;
-    private int time;
+    private float time;
     float deltaTime;
 
-    int MAX_TIME = 100;
+    float MAX_TIME = 100;
 
     float TIMEBAR_SCALE;
 
@@ -64,11 +64,27 @@ public class GameBoard : MonoBehaviour
     [SerializeField] Text LevelText;
     [SerializeField] Text StepsCountTxt;
 
+    private string score = "" ;
+    public float Score
+    {
+        get
+        {
+            return float.Parse(Encryptor.Decode(score));
+        }
+
+        set
+        {
+            score = Encryptor.Encode (value.ToString ());
+        }
+
+    }
+
     #region unity Lifecycle
 
     void Start()
     {
         level = 0;
+        Score = 0;
     }
 
     private void OnEnable()
@@ -79,8 +95,6 @@ public class GameBoard : MonoBehaviour
         {
             cards[i].Cat = cats[i];
         }
-
-        time = MAX_TIME - level * 10;
 
         Reset();
 
@@ -105,11 +119,16 @@ public class GameBoard : MonoBehaviour
                    
                     level++;*/
 
+
                 }
+
                 time--;
+
             }
 	
             timerBar.value -= Time.deltaTime * TIMEBAR_SCALE;
+    
+
             deltaTime += Time.deltaTime;
         }
     }
@@ -119,6 +138,8 @@ public class GameBoard : MonoBehaviour
 
     private void GenerateCats()
     {
+       
+
         cats = new Cat[cards.Length];
 
         for (var i = 0; i < cats.Length; i += 2)
@@ -223,7 +244,6 @@ public class GameBoard : MonoBehaviour
 
     public void UseTimerBonus()
     {
-        Debug.Log("we");
         if (TimerBonusCount > 0)
         {
             time += 20;
@@ -235,8 +255,6 @@ public class GameBoard : MonoBehaviour
 
     private void CompareCards(Card card)
     {
-        // moves++;
-        //UpdateTimer();
 
 
         if (card.Cat.id != selectedCard.Cat.id)
@@ -258,8 +276,23 @@ public class GameBoard : MonoBehaviour
 
     void ToGameOver()
     {
-        gameOver.Invoke(boardKey, time);
-        Debug.Log("dsdv");
+        Score += (float)(pairsFound *3* (level+1));
+
+        Debug.Log(Score.ToString()+"Score");
+
+        //if 0-loose else win;
+        var isNewRecord = 0;
+        if ((int)Score > PlayerData.Instance.Score)
+        {
+            //new record;
+            //liderboard
+            PlayerData.Instance.SetScore((int)Score);
+            isNewRecord = 1;
+        }
+
+    
+        gameOver.Invoke(boardKey, isNewRecord);
+
         GameCanvasAnimator.SetBool(GAME_OVER_ANIMATOR_CONDITION, true);
         level = 0;
         isUpadate = false;
@@ -270,7 +303,11 @@ public class GameBoard : MonoBehaviour
     {
         if (pairsFound >= cards.Length / 2)
         {
-            nextLevel.Invoke(boardKey, time);
+            Score += (float)((time/10 + (float)(StepsCount/5)) *(level+1));
+
+            Debug.Log(Score.ToString()+"score");
+
+            nextLevel.Invoke(boardKey, (int)Score);
             GameCanvasAnimator.SetBool(GAME_OVER_ANIMATOR_CONDITION, false);
             level++;
             isUpadate = false;//nextLevel
@@ -285,6 +322,48 @@ public class GameBoard : MonoBehaviour
 
         pairsFound = 0;
 
+        if (level == 0)
+        {
+            StepsCount = 50;
+            MAX_TIME = time = 5;
+        }
+        else if (level == 1)
+        {
+            StepsCount = 40;
+            MAX_TIME = time = 85;
+        }
+        else if (level == 2)
+        {
+            StepsCount = 30;
+            MAX_TIME = time = 70;
+        }
+        else if (level == 3)
+        {
+            StepsCount = 25;
+            MAX_TIME = time = 50;
+        }
+        else if (level == 4)
+        {
+            StepsCount = 25;
+            MAX_TIME = time = 40;
+        }
+        else if (level == 4)
+        {
+            StepsCount = 20;
+            MAX_TIME = time = 35;
+        }
+        else if (level == 5)
+        {
+            StepsCount = 18;
+            MAX_TIME = time = 30;
+        }
+        else
+        {
+            StepsCount = 16;
+            MAX_TIME = time = 28;
+        }
+
+
         TIMEBAR_SCALE = 100 / time; 
         timerBar.value = timerBar.maxValue;
         UpdateTimer(); 
@@ -298,12 +377,12 @@ public class GameBoard : MonoBehaviour
         TipsCountTxt.text = TipsCount.ToString();
         LevelText.text = (level + 1).ToString();
 
-        StepsCount = 50 - level * 5;  
         StepsCountTxt.text = StepsCount.ToString();
      }
 
     public void Quit()
     {
+        Score = 0;
         level = 0;
         Reset();
     } 
