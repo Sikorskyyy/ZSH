@@ -73,6 +73,8 @@
      <Compile Include="Assets\Scripts\Menu\NoAdsButton.cs" />
      <Compile Include="Assets\Scripts\Menu\SoundButtons.cs" />
      <Compile Include="Assets\Scripts\Menu\WatchButtons.cs" />
+     <Compile Include="Assets\Scripts\PlayerData\Encryptor.cs" />
+     <Compile Include="Assets\Scripts\PlayerData\PlayerData.cs" />
      <Compile Include="Assets\Scripts\RandomSpritePicker.cs" />
      <Compile Include="Assets\Scripts\WinMessage.cs" />
      <None Include="Assets\Plugins\UnityPurchasing\script\link.xml" />

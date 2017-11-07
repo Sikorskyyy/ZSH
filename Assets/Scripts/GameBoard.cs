@@ -48,16 +48,21 @@ public class GameBoard : MonoBehaviour
     private int time;
     float deltaTime;
 
-    int MAX_TIME = 10;
+    int MAX_TIME = 100;
 
     float TIMEBAR_SCALE;
 
     public int level{ get; private set;}
 
-    public bool isTip = false;
-
+    bool isTip = false;
     int TimerBonusCount = 3;
     int TipsCount = 3;
+    int StepsCount ;
+
+    [SerializeField] Text TipsCountTxt;
+    [SerializeField] Text TimerBonusTxt;
+    [SerializeField] Text LevelText;
+    [SerializeField] Text StepsCountTxt;
 
     #region unity Lifecycle
 
@@ -78,6 +83,7 @@ public class GameBoard : MonoBehaviour
         time = MAX_TIME - level * 10;
 
         Reset();
+
     }
 
 
@@ -91,13 +97,15 @@ public class GameBoard : MonoBehaviour
                 deltaTime = 0;
                 UpdateTimer();
 
-                if (time == 0)
+                if (time == 0 || StepsCount == 0)
                 {
-                    //ToGameOver();
-                    nextLevel.Invoke(boardKey, time);
+                    ToGameOver();
+                    /*nextLevel.Invoke(boardKey, time);
                     GameCanvasAnimator.SetBool(GAME_OVER_ANIMATOR_CONDITION, false);//nextLevel
+                   
+                    level++;*/
+
                     isUpadate = false;
-                    level++;
                 }
                 time--;
             }
@@ -185,11 +193,18 @@ public class GameBoard : MonoBehaviour
             }
         }
 
+        if (!isTip)
+        {
+            StepsCount--;
+            StepsCountTxt.text = StepsCount.ToString();
+        }
+
         eventSystem.enabled = false;
         StartCoroutine(ActionAfterDelay.DoAfterDelay(0.5f, () =>
                 {
                     CompareCards(card);
                 }));
+        
     }
 
     public void UseTip()
@@ -199,22 +214,26 @@ public class GameBoard : MonoBehaviour
             isTip = true;
             TipsCount--;
         }
+        TipsCountTxt.text = TipsCount.ToString();
     }
 
     public void UseTimerBonus()
     {
+        Debug.Log("we");
         if (TimerBonusCount > 0)
         {
             time += 20;
             timerBar.value += 20 * TIMEBAR_SCALE;
             TimerBonusCount--;
         }
+        TimerBonusTxt.text = TimerBonusCount.ToString();
     }
 
     private void CompareCards(Card card)
     {
         // moves++;
         //UpdateTimer();
+
 
         if (card.Cat.id != selectedCard.Cat.id)
         {
@@ -268,12 +287,19 @@ public class GameBoard : MonoBehaviour
 
         TimerBonusCount = 3;
         TipsCount = 3;
-    }
+
+        TimerBonusTxt.text = TimerBonusCount.ToString();
+        TipsCountTxt.text = TipsCount.ToString();
+        LevelText.text = (level + 1).ToString();
+
+        StepsCount = 64 - level * 5;  
+        StepsCountTxt.text = StepsCount.ToString();
+     }
 
     public void Quit()
     {
-        Reset();
         level = 0;
+        Reset();
     } 
 
     private void UpdateTimer()
