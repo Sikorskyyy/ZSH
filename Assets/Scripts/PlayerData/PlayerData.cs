@@ -18,6 +18,8 @@ public class PlayerData : MonoBehaviour
     public int TimerBonusCount  { get; private set;}
     public bool IsAd { get; private set;}
 
+    [SerializeField] GameObject btnNoAd;
+
     void Awake()
     {
         Instance = this;
@@ -35,6 +37,9 @@ public class PlayerData : MonoBehaviour
             Score = 0;
         }
 
+        //SetScore(0);
+
+        Debug.Log(Score.ToString());
 
         if (PlayerPrefs.HasKey(TIMER_BONUS_KEY))
         {
@@ -78,6 +83,7 @@ public class PlayerData : MonoBehaviour
 	{
         TipsCount += tips; 
         PlayerPrefs.SetString(TIPS_KEY, Encryptor.Encode(TipsCount.ToString()));
+        BonusUpdateInfo.Instance.UpdateInfo();
 	}
 
     public int GetTipsCount ()
@@ -90,6 +96,7 @@ public class PlayerData : MonoBehaviour
     {
         TimerBonusCount += count;
         PlayerPrefs.SetString(TIMER_BONUS_KEY, Encryptor.Encode(TimerBonusCount.ToString()));
+        BonusUpdateInfo.Instance.UpdateInfo();
     }
 
 	public int GetTimerBonusCount ()
@@ -108,6 +115,7 @@ public class PlayerData : MonoBehaviour
         if (PlayerPrefs.HasKey(Ad_KEY))
         {
             IsAd = false;
+            btnNoAd.SetActive(false);
         }
         else
         {

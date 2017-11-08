@@ -19,6 +19,8 @@ public class WatchButtons : MonoBehaviour {
 
     private void OnMouseUpAsButton()
     {
+        AudioManager.Instance.PlaySound();
+
         switch (action)
         {
 

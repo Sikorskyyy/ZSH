@@ -6,6 +6,8 @@ public class RandomSpritePicker : MonoBehaviour
     private Sprite[] sprites;
     [SerializeField]
     private Sprite[] subSprites;
+    [SerializeField]
+    private AudioClip [] Clips;
 
     int lastIndex;
     public Sprite Pick()
@@ -23,5 +25,10 @@ public class RandomSpritePicker : MonoBehaviour
     public Sprite GetSubPicture()
     {
        return subSprites[lastIndex];
+    }
+
+    public AudioClip GetClip()
+    {
+        return Clips[lastIndex];
     }
 }

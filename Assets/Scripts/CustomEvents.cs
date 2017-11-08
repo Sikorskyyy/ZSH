@@ -10,6 +10,9 @@ public class CustomEvents
     public class UnityStringIntEvent : UnityEvent<string, int> { }
 
     [Serializable]
+    public class UnityStringIntIntEvent : UnityEvent<string, int, int> { }
+
+    [Serializable]
     public class UnityCardEvent : UnityEvent<Card> { }
 
     [Serializable]

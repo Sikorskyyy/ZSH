@@ -23,6 +23,7 @@ public class BonusUpdateInfo : MonoBehaviour
         {
             UpdateInfo();
         }
+        Debug.Log("svdsd");
     }
 	
 	public void UpdateInfo () 

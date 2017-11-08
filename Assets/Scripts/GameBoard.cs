@@ -36,7 +36,7 @@ public class GameBoard : MonoBehaviour
     private CustomEvents.UnityStringIntEvent nextLevel;
 
     [SerializeField]
-    private CustomEvents.UnityStringIntEvent gameOver;
+    private CustomEvents.UnityStringIntIntEvent gameOver;
 
     string GAME_OVER_ANIMATOR_CONDITION = "isGameOver";
 
@@ -49,6 +49,7 @@ public class GameBoard : MonoBehaviour
     float deltaTime;
 
     float MAX_TIME = 100;
+    int MAX_STEP_COUNT;
 
     float TIMEBAR_SCALE;
 
@@ -62,7 +63,7 @@ public class GameBoard : MonoBehaviour
     bool isTip = false;
     int TimerBonusCount ;
     int TipsCount ;
-    int  AD_COUNTER_CONST = 20;
+    int  AD_COUNTER_CONST = 10;
     int StepsCount ;
 
     [SerializeField] Text TipsCountTxt;
@@ -197,10 +198,12 @@ public class GameBoard : MonoBehaviour
 
                 if (!CatExists(color))
                 {
-                    generatedCat = new Cat { Color = color, /*Accessory = accessory,*/ id = i };
+                    var audioClip = colorPicker.GetClip();
+
+                    generatedCat = new Cat { Color = color, clip = audioClip, id = i };
 
                     color = colorPicker.GetSubPicture();
-                    subCat = new Cat { Color = color, /*Accessory = accessory,*/ id = i };
+                    subCat = new Cat { Color = color, clip = audioClip, id = i };
                 }
                     
             }
@@ -304,7 +307,6 @@ public class GameBoard : MonoBehaviour
     private void CompareCards(Card card)
     {
 
-
         if (card.Cat.id != selectedCard.Cat.id)
         {
             card.FlipHidden();
@@ -315,6 +317,7 @@ public class GameBoard : MonoBehaviour
             pairsFound++;
             card.PairFound();
             selectedCard.PairFound();
+            AudioManager.Instance.PlaySoundOneShot(selectedCard.Cat.clip);
             CheckGameEnd();
         }
         selectedCard = null;
@@ -324,16 +327,15 @@ public class GameBoard : MonoBehaviour
 
     void ToGameOver()
     {
-        Score += (float)(pairsFound *3* (level+1));
+        Score += (float)(pairsFound * (level+1));
 
         Debug.Log(Score.ToString()+"Score");
+
 
         //if 0-loose else win;
         var isNewRecord = 0;
         if ((int)Score > PlayerData.Instance.Score)
         {
-            //new record;
-            //liderboard
             PlayerData.Instance.SetScore((int)Score);
             LiderBoard.OnAddScoreToLeaderBorad((long)Score);
             isNewRecord = 1;
@@ -349,12 +351,15 @@ public class GameBoard : MonoBehaviour
            
         }
     
-        gameOver.Invoke(boardKey, isNewRecord);
+        gameOver.Invoke(boardKey, isNewRecord,(int) Score);
 
         GameCanvasAnimator.SetBool(GAME_OVER_ANIMATOR_CONDITION, true);
         level = 0;
         isUpadate = false;
         isFirst = true;
+
+        PlayerData.Instance.SetTipsCount(TipsCount);
+        PlayerData.Instance.SetTimerBonusCount(TimerBonusCount);
     }
 
 
@@ -362,7 +367,21 @@ public class GameBoard : MonoBehaviour
     {
         if (pairsFound >= cards.Length / 2)
         {
-            Score += (float)((time/10 + (float)(StepsCount/5)) *(level+1));
+            var deltaTime = (MAX_TIME - time);
+            var deltaSteps = MAX_STEP_COUNT - StepsCount;
+           
+
+            if (deltaSteps == 0) deltaSteps = 1;
+            if (deltaTime == 0) deltaTime = 1;
+
+            var deltaScore = (float)((100 - (deltaTime/2 + deltaSteps))*(level+1));
+
+            Score += deltaScore;
+
+
+            Debug.Log("Steps" + deltaSteps.ToString() + "\nTime"
+                + deltaTime.ToString() +"delscore" +deltaScore.ToString());
+            
 
             Debug.Log(Score.ToString()+"score");
 
@@ -383,51 +402,51 @@ public class GameBoard : MonoBehaviour
 
         if (level == 0)
         {
-            StepsCount = 50;
+            MAX_STEP_COUNT = StepsCount = 50;
             MAX_TIME = time = 100;
-            LevelJOkeTxt.text = "ИЗИ КАТОЧКА ЛЕВЛ " + level.ToString() ;
+            LevelJOkeTxt.text = "'ИЗИ КАТОЧКА ЛЕВЛ' " + (level+1).ToString() ;
         }
         else if (level == 1)
         {
-            StepsCount = 40;
+            MAX_STEP_COUNT = StepsCount = 40;
             MAX_TIME = time = 85;
-            LevelJOkeTxt.text = "НОРМ ЛЕВЛ " + level.ToString();
+            LevelJOkeTxt.text = "'НОРМ ЛЕВЛ' " + (level+1).ToString();
         }
         else if (level == 2)
         {
-            StepsCount = 30;
+            MAX_STEP_COUNT = StepsCount = 30;
             MAX_TIME = time = 70;
-            LevelJOkeTxt.text = "ТАЩИШЬ ЛЕВЛ " + level.ToString();
+            LevelJOkeTxt.text = "'ТАЩИШЬ ЛЕВЛ' " + (level+1).ToString();
         }
         else if (level == 3)
         {
-            StepsCount = 25;
+            MAX_STEP_COUNT = StepsCount = 25;
+            MAX_TIME = time = 60;
+            LevelJOkeTxt.text = "'ОООГО ЛЕВЛ' " + (level+1).ToString();
+        }
+        else if (level == 4)
+        {
+            MAX_STEP_COUNT = StepsCount = 25;
             MAX_TIME = time = 50;
-            LevelJOkeTxt.text = "ОООГО ЛЕВЛ " + level.ToString();
+            LevelJOkeTxt.text = "ЭТА ЖЕСТКА ЛЕВЛ " + (level+1).ToString();
         }
         else if (level == 4)
         {
-            StepsCount = 25;
+            MAX_STEP_COUNT = StepsCount = 20;
             MAX_TIME = time = 40;
-            LevelJOkeTxt.text = "ЭТА ЖЕСТКА ЛЕВЛ " + level.ToString();
-        }
-        else if (level == 4)
-        {
-            StepsCount = 20;
-            MAX_TIME = time = 35;
-            LevelJOkeTxt.text = "ХАРД ЛЕВЛ " + level.ToString();
+            LevelJOkeTxt.text = "ХАРД ЛЕВЛ " + (level+1).ToString();
         }
         else if (level == 5)
         {
-            StepsCount = 18;
-            MAX_TIME = time = 30;
-            LevelJOkeTxt.text = "ЕЕЕЕЕЕ БОЙ ЛЕВЛ " + level.ToString();
+            MAX_STEP_COUNT = StepsCount = 18;
+            MAX_TIME = time = 35;
+            LevelJOkeTxt.text = "ЕЕЕЕЕЕ БОЙ ЛЕВЛ " + (level+1).ToString();
         }
         else
         {
-            StepsCount = 16;
-            MAX_TIME = time = 28;
-            LevelJOkeTxt.text = "ЗАДРОТ ЛЕВЛ "+ level.ToString();
+            MAX_STEP_COUNT = StepsCount = 16;
+            MAX_TIME = time = 32;
+            LevelJOkeTxt.text = "ЗАДРОТ ЛЕВЛ "+ (level+1).ToString();
         }
 
 
@@ -453,6 +472,8 @@ public class GameBoard : MonoBehaviour
         level = 0;
         Reset();
         isFirst = true;
+        PlayerData.Instance.SetTipsCount(TipsCount);
+        PlayerData.Instance.SetTimerBonusCount(TimerBonusCount);
     } 
 
     private void UpdateTimer()

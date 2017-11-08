@@ -30,6 +30,8 @@ public class SoundButtons : MonoBehaviour
 
     private void OnMouseUpAsButton()
     {
+        AudioManager.Instance.PlaySound();
+
         SwitchMute();
     }
 

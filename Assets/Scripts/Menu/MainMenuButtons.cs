@@ -34,8 +34,11 @@ public class MainMenuButtons : MonoBehaviour {
 
     private void OnMouseUpAsButton()
     {
+
+        AudioManager.Instance.PlaySound();
         switch (action)
         {
+           
 			
             case "records":
                 

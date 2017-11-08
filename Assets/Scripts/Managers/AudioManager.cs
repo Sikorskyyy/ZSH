@@ -44,6 +44,10 @@ public class AudioManager : MonoBehaviour {
 		audioSounds.Play();
 	}
 
+    public void PlaySound()
+    {
+        audioSounds.Play();
+    }
 
 	public void PlayMusic()
 	{
