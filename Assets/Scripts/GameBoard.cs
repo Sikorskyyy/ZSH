@@ -52,17 +52,24 @@ public class GameBoard : MonoBehaviour
 
     float TIMEBAR_SCALE;
 
+    bool isAd = true;
+    int showAdCounter;
+
+    bool isFirst = true ;
+
     public int level{ get; private set;}
 
     bool isTip = false;
-    int TimerBonusCount = 3;
-    int TipsCount = 3;
+    int TimerBonusCount ;
+    int TipsCount ;
+    int  AD_COUNTER_CONST = 20;
     int StepsCount ;
 
     [SerializeField] Text TipsCountTxt;
     [SerializeField] Text TimerBonusTxt;
     [SerializeField] Text LevelText;
     [SerializeField] Text StepsCountTxt;
+    [SerializeField] Text LevelJOkeTxt;
 
     private string score = "" ;
     public float Score
@@ -83,21 +90,64 @@ public class GameBoard : MonoBehaviour
 
     void Start()
     {
+        
         level = 0;
         Score = 0;
+        showAdCounter = AD_COUNTER_CONST;
+       // isFirst = true;
     }
 
     private void OnEnable()
     {
         GenerateCats();
         Shuffle(cats);
+
+        isAd =  PlayerData.Instance.IsAd;
+
         for (var i = 0; i < cards.Length; i++)
         {
             cards[i].Cat = cats[i];
         }
 
-        Reset();
+        if (showAdCounter != 0)
+        {
+            showAdCounter--;
+        }
 
+        if (isFirst)
+        {
+            if (PlayerData.Instance.TipsCount >= 3)
+            {
+                TipsCount = 3;
+                PlayerData.Instance.SetTipsCount(-3);
+            }
+            else
+            {
+                TipsCount = PlayerData.Instance.TipsCount;
+                PlayerData.Instance.SetTipsCount(-TipsCount);
+            }
+                
+
+            if (PlayerData.Instance.TimerBonusCount >= 3)
+            {
+                TimerBonusCount = 3;
+                PlayerData.Instance.SetTimerBonusCount(-3);
+            }
+            else
+            {
+                TimerBonusCount = PlayerData.Instance.TimerBonusCount;
+                PlayerData.Instance.SetTimerBonusCount(-TimerBonusCount);
+            }
+
+            isFirst = false;
+
+            Debug.Log(TipsCount.ToString() + TimerBonusCount.ToString());
+        }
+
+
+
+        Reset();
+       
     }
 
 
@@ -114,11 +164,6 @@ public class GameBoard : MonoBehaviour
                 if (time == 0)
                 {
                     ToGameOver();
-                    /*nextLevel.Invoke(boardKey, time);
-                   //nextLevel
-                   
-                    level++;*/
-
 
                 }
 
@@ -234,12 +279,15 @@ public class GameBoard : MonoBehaviour
 
     public void UseTip()
     {
-        if (TipsCount > 0)
+        if(!isTip)
         {
-            isTip = true;
-            TipsCount--;
+            if (TipsCount > 0)
+            {
+                isTip = true;
+                TipsCount--;
+            }
+                TipsCountTxt.text = TipsCount.ToString();
         }
-        TipsCountTxt.text = TipsCount.ToString();
     }
 
     public void UseTimerBonus()
@@ -287,15 +335,26 @@ public class GameBoard : MonoBehaviour
             //new record;
             //liderboard
             PlayerData.Instance.SetScore((int)Score);
+            LiderBoard.OnAddScoreToLeaderBorad((long)Score);
             isNewRecord = 1;
         }
 
+        if (isAd)
+        {
+            if (showAdCounter == 0)
+            {
+                AdManager.Instance.showAd();
+                showAdCounter = AD_COUNTER_CONST;
+            }
+           
+        }
     
         gameOver.Invoke(boardKey, isNewRecord);
 
         GameCanvasAnimator.SetBool(GAME_OVER_ANIMATOR_CONDITION, true);
         level = 0;
         isUpadate = false;
+        isFirst = true;
     }
 
 
@@ -325,43 +384,52 @@ public class GameBoard : MonoBehaviour
         if (level == 0)
         {
             StepsCount = 50;
-            MAX_TIME = time = 5;
+            MAX_TIME = time = 100;
+            LevelJOkeTxt.text = "ИЗИ КАТОЧКА ЛЕВЛ " + level.ToString() ;
         }
         else if (level == 1)
         {
             StepsCount = 40;
             MAX_TIME = time = 85;
+            LevelJOkeTxt.text = "НОРМ ЛЕВЛ " + level.ToString();
         }
         else if (level == 2)
         {
             StepsCount = 30;
             MAX_TIME = time = 70;
+            LevelJOkeTxt.text = "ТАЩИШЬ ЛЕВЛ " + level.ToString();
         }
         else if (level == 3)
         {
             StepsCount = 25;
             MAX_TIME = time = 50;
+            LevelJOkeTxt.text = "ОООГО ЛЕВЛ " + level.ToString();
         }
         else if (level == 4)
         {
             StepsCount = 25;
             MAX_TIME = time = 40;
+            LevelJOkeTxt.text = "ЭТА ЖЕСТКА ЛЕВЛ " + level.ToString();
         }
         else if (level == 4)
         {
             StepsCount = 20;
             MAX_TIME = time = 35;
+            LevelJOkeTxt.text = "ХАРД ЛЕВЛ " + level.ToString();
         }
         else if (level == 5)
         {
             StepsCount = 18;
             MAX_TIME = time = 30;
+            LevelJOkeTxt.text = "ЕЕЕЕЕЕ БОЙ ЛЕВЛ " + level.ToString();
         }
         else
         {
             StepsCount = 16;
             MAX_TIME = time = 28;
+            LevelJOkeTxt.text = "ЗАДРОТ ЛЕВЛ "+ level.ToString();
         }
+
 
 
         TIMEBAR_SCALE = 100 / time; 
@@ -370,14 +438,13 @@ public class GameBoard : MonoBehaviour
        // Debug.Break();
         isUpadate = true;
 
-        TimerBonusCount = 3;
-        TipsCount = 3;
 
         TimerBonusTxt.text = TimerBonusCount.ToString();
         TipsCountTxt.text = TipsCount.ToString();
         LevelText.text = (level + 1).ToString();
 
         StepsCountTxt.text = StepsCount.ToString();
+
      }
 
     public void Quit()
@@ -385,6 +452,7 @@ public class GameBoard : MonoBehaviour
         Score = 0;
         level = 0;
         Reset();
+        isFirst = true;
     } 
 
     private void UpdateTimer()

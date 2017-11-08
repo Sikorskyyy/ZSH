@@ -9,12 +9,13 @@ public class MainMenuButtons : MonoBehaviour {
     private void Start()
     {		
 
-		/*if (action == "noAds") {
-			noAdBtn = gameObject;
-			if (PlayerPrefs.HasKey ("NoAdsIsBuyed")) {///бля выключить рекламу не забудь поц))))
-				gameObject.SetActive (false);
-			}
-		}*/
+		if (action == "noAds")
+        {
+            if (PlayerData.Instance.IsAd)
+            {	
+                gameObject.SetActive(false);
+            }
+		}
 			
 		
     }
@@ -36,27 +37,21 @@ public class MainMenuButtons : MonoBehaviour {
         switch (action)
         {
 			
-			case "records":
-			//LiderBoard.OnShowLeaderBoard ();
+            case "records":
+                
+                LiderBoard.OnShowLeaderBoard();
+                Debug.Log("reco");//нихуя не заработает пока я не залью апк норм ключ 
 			break;
-
-		
-			
-
-				/*case "watchTip":
-					//adManager.ShowAd ();
-				break;
-
-                case "watchTime":
-                //adManager.ShowAd ();
-                break;*/
+               
 
 				case "noAds":
 					/*if (APIController.instance == null) {
 						APIController.instance = new APIController ();
 						APIController.instance.Start();
-					}
-					APIController.instance.BuyNoAds ();*/
+					}*/
+                
+					APIController.instance.BuyNoAds ();
+
 				break;
 
 
@@ -81,7 +76,8 @@ public class MainMenuButtons : MonoBehaviour {
 					Application.Quit ();
 				break;
 
-        }    
+        }   
+                
 
     }
 

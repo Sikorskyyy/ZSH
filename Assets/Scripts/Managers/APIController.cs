@@ -1,8 +1,7 @@
-﻿/*using System;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Purchasing;
-using Assets.Scripts.Common;
 
 public class APIController : MonoBehaviour,  IStoreListener
 {
@@ -11,10 +10,6 @@ public class APIController : MonoBehaviour,  IStoreListener
 	private static IStoreController m_StoreController;          // The Unity Purchasing system.
 	private static IExtensionProvider m_StoreExtensionProvider; // The store-specific Purchasing subsystems.
 
-	public static string Poduct_PROTEIN_3000 = "protein.3k";   
-	public static string Poduct_PROTEIN_7000 = "protein.7k";
-	public static string Poduct_PROTEIN_16000 = "protein.16k";
-	public static string Poduct_PROTEIN_30000 = "protein.30k";
 	public static string Poduct_NO_ADS = "no.ad";  
 
 	// Apple App Store-specific product identifier for the subscription product.
@@ -34,20 +29,15 @@ public class APIController : MonoBehaviour,  IStoreListener
 
 	public void InitializePurchasing() 
 	{
-		// If we have already connected to Purchasing ...
+		
 		if (IsInitialized())
 		{
-			// ... we are done here.
 			return;
 		}
 
 		// Create a builder, first passing in a suite of Unity provided stores.
 		var builder = ConfigurationBuilder.Instance(StandardPurchasingModule.Instance());
 
-		builder.AddProduct(Poduct_PROTEIN_3000, ProductType.Consumable);
-		builder.AddProduct(Poduct_PROTEIN_7000, ProductType.Consumable);
-		builder.AddProduct(Poduct_PROTEIN_16000, ProductType.Consumable);
-		builder.AddProduct(Poduct_PROTEIN_30000, ProductType.Consumable);
 		builder.AddProduct(Poduct_NO_ADS, ProductType.NonConsumable);
 
 		UnityPurchasing.Initialize(this, builder);
@@ -59,28 +49,7 @@ public class APIController : MonoBehaviour,  IStoreListener
 		// Only say we are initialized if both the Purchasing references are set.
 		return m_StoreController != null && m_StoreExtensionProvider != null;
 	}
-
-
-	public void BuyProtein3000()
-	{
-		BuyProductID(Poduct_PROTEIN_3000);
-	}
-
-
-	public void BuyProtein7000()
-	{
-		BuyProductID(Poduct_PROTEIN_7000);
-	}
-
-	public void BuyProtein16000()
-	{
-		BuyProductID(Poduct_PROTEIN_16000);
-	}
-
-	public void BuyProtein30000()
-	{
-		BuyProductID(Poduct_PROTEIN_30000);
-	}
+        
 
 	public void BuyNoAds()
 	{
@@ -142,29 +111,11 @@ public class APIController : MonoBehaviour,  IStoreListener
 
 	public PurchaseProcessingResult ProcessPurchase(PurchaseEventArgs args) 
 	{
-		if (String.Equals(args.purchasedProduct.definition.id, Poduct_PROTEIN_3000 , StringComparison.Ordinal))
+		
+		if (String.Equals(args.purchasedProduct.definition.id, Poduct_NO_ADS, StringComparison.Ordinal))
 		{
-			PlayerData.SetCoins (Encryptor.Encode((float.Parse (Encryptor.Decode (PlayerData.GetCoins ()))+3000).ToString()));
-		}
-
-		else if (String.Equals(args.purchasedProduct.definition.id, Poduct_PROTEIN_7000, StringComparison.Ordinal))
-		{
-			PlayerData.SetCoins (Encryptor.Encode((float.Parse (Encryptor.Decode (PlayerData.GetCoins ()))+7000).ToString()));
-		}
-		// Or ... a subscription product has been purchased by this user.
-		else if (String.Equals(args.purchasedProduct.definition.id, Poduct_PROTEIN_16000, StringComparison.Ordinal))
-		{
-			PlayerData.SetCoins (Encryptor.Encode((float.Parse (Encryptor.Decode (PlayerData.GetCoins ()))+16000).ToString()));
-		}
-		else if (String.Equals(args.purchasedProduct.definition.id, Poduct_PROTEIN_30000, StringComparison.Ordinal))
-		{
-			//Debug.Log(string.Format("ProcessPurchase: PASS. Product: '{0}'", args.purchasedProduct.definition.id));
-			PlayerData.SetCoins (Encryptor.Encode((float.Parse (Encryptor.Decode (PlayerData.GetCoins ()))+30000).ToString()));
-		}
-		else if (String.Equals(args.purchasedProduct.definition.id, Poduct_NO_ADS, StringComparison.Ordinal))
-		{
-			PlayerPrefs.SetString("NoAdsIsBuyed", "yes");
-			MainMenuButtons.noAdBtn.SetActive (false);
+            PlayerData.Instance.ScipAds();
+			//MainMenuButtons.noAdBtn.SetActive (false);
 		}
 		// Or ... an unknown product has been purchased by this user. Fill in additional products here....
 		else 
@@ -172,7 +123,7 @@ public class APIController : MonoBehaviour,  IStoreListener
 			Debug.Log(string.Format("ProcessPurchase: FAIL. Unrecognized product: '{0}'", args.purchasedProduct.definition.id));
 		}
 
-		updateProtCount.Instance.UpdateText ();
+		//updateProtCount.Instance.UpdateText ();
 		return PurchaseProcessingResult.Complete;
 	}
 		
@@ -180,4 +131,4 @@ public class APIController : MonoBehaviour,  IStoreListener
 	{
 		Debug.Log(string.Format("OnPurchaseFailed: FAIL. Product: '{0}', PurchaseFailureReason: {1}", product.definition.storeSpecificId, failureReason));
 	}
-}*/
+}

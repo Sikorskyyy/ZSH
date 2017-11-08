@@ -1,0 +1,8 @@
+lastUpgrade=00942
+proj.pluginVersion=0.9.42
+proj.AppId=389416105318
+proj.classDir=Assets
+proj.ConstantsClassName=GPGSI
+and.ResourceData=%3c%3fxml+version%3d%221.0%22+encoding%3d%22utf-8%22%3f%3e%0d%0a%3c%21--%0d%0aGoogle+Play+game+services+IDs.%0d%0aSave+this+file+as+res%2fvalues%2fgames-ids.xml+in+your+project.%0d%0a--%3e%0d%0a%3cresources%3e%0d%0a++%3c%21--+app_id+--%3e%0d%0a++%3cstring+name%3d%22app_id%22+translatable%3d%22false%22%3e389416105318%3c%2fstring%3e%0d%0a++%3c%21--+leaderboard+%d0%a2%d0%b0%d0%b9%d0%bd%d0%b0+%d0%92%d1%81%d0%b5%d0%bb%d0%b5%d0%bd%d1%81%d0%ba%d0%be%d0%b9+%d0%91%d1%80%d0%b8%d1%82%d0%b2%d1%8b+--%3e%0d%0a++%3cstring+name%3d%22leaderboard%22+translatable%3d%22false%22%3eCgkI5uqI2KoLEAIQAA%3c%2fstring%3e%0d%0a%3c%2fresources%3e
+and.ClientId=
+android.SetupDone=true

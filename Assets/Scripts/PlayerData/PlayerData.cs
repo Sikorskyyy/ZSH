@@ -10,17 +10,23 @@ public class PlayerData : MonoBehaviour
 
     static string SCORE_KEY = "score";
     static string TIPS_KEY = "tipsAmount";
-    static string TIMER_BONUS_KEY = "timerBonus"; 
+    static string TIMER_BONUS_KEY = "timerBonus";
+    static string Ad_KEY = "ads";
  
     public int Score { get; private set;}
     public int TipsCount { get; private set;}
     public int TimerBonusCount  { get; private set;}
+    public bool IsAd { get; private set;}
+
+    void Awake()
+    {
+        Instance = this;
+    }
 
     void Start()
     {
-        Instance = this;
         
-        if (PlayerPrefs.HasKey(SCORE_KEY))
+           if (PlayerPrefs.HasKey(SCORE_KEY))
         {
             Score = GetScore();
         }
@@ -48,6 +54,11 @@ public class PlayerData : MonoBehaviour
         {
             TipsCount = 0;
         }
+
+        CheckAds();
+
+        BonusUpdateInfo.Instance.UpdateInfo();
+        BonusUpdateInfo.Instance.isCanUpdate = true;
             
     }
 
@@ -65,8 +76,8 @@ public class PlayerData : MonoBehaviour
 		
 	public void SetTipsCount (int tips)
 	{
-        TipsCount = tips; 
-        PlayerPrefs.SetString(TIPS_KEY, Encryptor.Encode(tips.ToString()));
+        TipsCount += tips; 
+        PlayerPrefs.SetString(TIPS_KEY, Encryptor.Encode(TipsCount.ToString()));
 	}
 
     public int GetTipsCount ()
@@ -77,13 +88,30 @@ public class PlayerData : MonoBehaviour
 
     public void SetTimerBonusCount (int count)
     {
-        TimerBonusCount = count;
-        PlayerPrefs.SetString(TIMER_BONUS_KEY, Encryptor.Encode(count.ToString()));
+        TimerBonusCount += count;
+        PlayerPrefs.SetString(TIMER_BONUS_KEY, Encryptor.Encode(TimerBonusCount.ToString()));
     }
 
 	public int GetTimerBonusCount ()
 	{
         return  int.Parse(Encryptor.Decode(PlayerPrefs.GetString (TIMER_BONUS_KEY)));
 	}
-        
+
+    public void ScipAds()
+    {
+        PlayerPrefs.SetString(Ad_KEY, "noAd");
+        CheckAds();
+    }
+
+     void CheckAds()
+    {
+        if (PlayerPrefs.HasKey(Ad_KEY))
+        {
+            IsAd = false;
+        }
+        else
+        {
+            IsAd = true;
+        }
+    }
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Advertisements;
 
 
-public class AdManager
+public class AdManager: MonoBehaviour
 {
 	
     private string gameId = "1599369";
@@ -16,7 +16,7 @@ public class AdManager
 
     bool isShowed;
 
-    public AdManager()
+    public void Awake()
     {    
         Instance = this;
 
