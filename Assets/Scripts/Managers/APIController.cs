@@ -115,6 +115,8 @@ public class APIController : MonoBehaviour,  IStoreListener
 		if (String.Equals(args.purchasedProduct.definition.id, Poduct_NO_ADS, StringComparison.Ordinal))
 		{
             PlayerData.Instance.ScipAds();
+            PlayerData.Instance.SetTimerBonusCount(15);
+            PlayerData.Instance.SetTipsCount(15);
 			//MainMenuButtons.noAdBtn.SetActive (false);
 		}
 		// Or ... an unknown product has been purchased by this user. Fill in additional products here....

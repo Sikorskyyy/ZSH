@@ -71,7 +71,7 @@ public class MainMenuButtons : MonoBehaviour {
 				break;*/
 
 				case "rate":
-					Application.OpenURL ("market://details?id=com.QiwiGames.Stupid_Kochkas");
+                Application.OpenURL ("market://details?id=com.QiwiGames.theShaverMystery");
 				break;
 
 				

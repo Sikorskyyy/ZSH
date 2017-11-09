@@ -12,18 +12,22 @@ public class BonusUpdateInfo : MonoBehaviour
     [SerializeField] Text timerCount;
     [SerializeField] Text tipsCount;
 
+
     void Awake()
     {
         Instance = this;
     }
 
-    void OnEnable()
+    void Start()
     {
-        if (isCanUpdate)
+        if (!PlayerPrefs.HasKey("firsssst"))
         {
-            UpdateInfo();
+            PlayerPrefs.SetInt("firsssst", 1);
+
+            PlayerData.Instance.SetTimerBonusCount(5);
+            PlayerData.Instance.SetTipsCount(5);
         }
-        Debug.Log("svdsd");
+        
     }
 	
 	public void UpdateInfo () 

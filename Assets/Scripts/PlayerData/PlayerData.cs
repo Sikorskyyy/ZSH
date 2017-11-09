@@ -117,6 +117,7 @@ public class PlayerData : MonoBehaviour
         else
         {
             IsAd = true;
+            AdManager.Instance.RequestBanner();
         }
     }
 }

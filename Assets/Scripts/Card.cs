@@ -19,6 +19,8 @@ public class Card : MonoBehaviour
     private Cat cat;
     private bool visible;
 
+    [SerializeField] AudioClip cardClip;
+
     public Cat Cat
     {
         get
@@ -46,6 +48,7 @@ public class Card : MonoBehaviour
 
     public void FlipVisible()
     {
+            AudioManager.Instance.PlaySoundOneShot(cardClip); 
             visible = true;
             animator.SetTrigger("Flip");
     }

@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Advertisements;
-
+using GoogleMobileAds.Api;
 
 public class AdManager: MonoBehaviour
 {
@@ -12,9 +12,13 @@ public class AdManager: MonoBehaviour
 
     public string placementId = "rewardedVideo";
 
+    public const string bannerID = "ca-app-pub-3481388842630586~8321859376"; 
+
     public static AdManager Instance;
 
     bool isShowed;
+
+    public BannerView bannerView;
 
     public void Awake()
     {    
@@ -24,8 +28,11 @@ public class AdManager: MonoBehaviour
         {
             Advertisement.Initialize(gameId, false);
         }
-    }
 
+        RequestBanner();
+            
+    }
+        
     public void ShowAdRewarded(Action callback)
     {
         if (Advertisement.IsReady(placementId))
@@ -61,5 +68,18 @@ public class AdManager: MonoBehaviour
             isShowed = true;
         }
     }
+        
+
+     public void RequestBanner()
+     {
+        bannerView = new BannerView(bannerID, AdSize.Banner, AdPosition.Bottom);
+
+        AdRequest request = new AdRequest.Builder().Build();
+        bannerView.LoadAd(request);
+
+        bannerView.Hide();
+
+        Debug.Log("build");
+     }
         
 }

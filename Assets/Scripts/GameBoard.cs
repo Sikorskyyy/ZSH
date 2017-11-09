@@ -63,7 +63,7 @@ public class GameBoard : MonoBehaviour
     bool isTip = false;
     int TimerBonusCount;
     int TipsCount;
-    int AD_COUNTER_CONST = 10;
+    int AD_COUNTER_CONST = 4;
     int StepsCount;
 
     public bool isTest = false;
@@ -98,6 +98,10 @@ public class GameBoard : MonoBehaviour
         level = 0;
         Score = 0;
         showAdCounter = AD_COUNTER_CONST;
+        if (isAd)
+        {
+            AdManager.Instance.RequestBanner();
+        }
         // isFirst = true;
     }
 
@@ -106,7 +110,15 @@ public class GameBoard : MonoBehaviour
         GenerateCats();
         Shuffle(cats);
 
+
         isAd = PlayerData.Instance.IsAd;
+
+        if (isAd)
+        {
+            AdManager.Instance.bannerView.Show();   
+        }
+
+        Debug.Log("shwe");
 
         for (var i = 0; i < cards.Length; i++)
         {
@@ -151,6 +163,18 @@ public class GameBoard : MonoBehaviour
 
         Reset();
        
+    }
+
+    void OnDisable()
+    {
+        if (isAd)
+        {
+            AdManager.Instance.bannerView.Hide();
+        
+            Debug.Log("hide banner");
+        }
+
+        Debug.Log("hide banner");
     }
 
 
@@ -298,8 +322,8 @@ public class GameBoard : MonoBehaviour
     {
         if (TimerBonusCount > 0)
         {
-            time += 20;
-            timerBar.value += 20 * TIMEBAR_SCALE;
+            time += 10;
+            timerBar.value += 10 * TIMEBAR_SCALE;
             TimerBonusCount--;
         }
         TimerBonusTxt.text = TimerBonusCount.ToString();
@@ -343,8 +367,12 @@ public class GameBoard : MonoBehaviour
             isNewRecord = 1;
         }
 
+        Debug.Log(showAdCounter.ToString());
         if (isAd)
         {
+            
+            Debug.Log(isAd.ToString());
+      
             if (showAdCounter == 0)
             {
                 AdManager.Instance.showAd();
@@ -394,6 +422,8 @@ public class GameBoard : MonoBehaviour
             GameCanvasAnimator.SetBool(GAME_OVER_ANIMATOR_CONDITION, false);
             level++;
             isUpadate = false;//nextLevel
+
+            Debug.Log(showAdCounter.ToString());
         }
         else if (StepsCount == 0)
         {
