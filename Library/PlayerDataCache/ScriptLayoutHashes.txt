@@ -123,7 +123,7 @@ c2275a8bfbb9f9942cad75ecdfded41d UnityEngine.HoloLens.dll:UnityEngine.VR.WSA.Spa
 45f3431f0103c41611e8d4eec3d439df UnityEngine.HoloLens.dll:UnityEngine.VR.WSA.SpatialMappingRenderer
 50667894c33b478dc38ae949114bb1e8 Assembly-CSharp-firstpass.dll:AppStoresSupport.AppStoreSettings
 6c8e2fb4a87fc9590b6695e64d447093 Assembly-CSharp.dll:.RandomSpritePicker
-f96dee0edc06c27cd9d854334aa5b49c Assembly-CSharp.dll:.GameBoard
+9b205e370aa77c56e6070a879fc7e0c7 Assembly-CSharp.dll:.GameBoard
 033a0e7f3e6e866fd4a2d78357e730e3 Assembly-CSharp.dll:.SoundButtons
 835b80357669dda59ee8abdd6cfff88b Assembly-CSharp.dll:.InfiniteScrollListManager
 a0eeac879803feb2d9a7308f683bb01b Assembly-CSharp.dll:.EventByAnimatorStateManager

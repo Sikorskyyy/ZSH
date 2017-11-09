@@ -15,7 +15,7 @@ public class BonusUpdateInfo : MonoBehaviour
     void Awake()
     {
         Instance = this;
-    }// Use this for initialization
+    }
 
     void OnEnable()
     {

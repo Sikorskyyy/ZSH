@@ -25,20 +25,10 @@ public class GameOver : MonoBehaviour
     private int score;
     private string boardKey;
 
-    Vector3 PosScore;
-    Vector3 NeRecordPos = new Vector3(229, -299, 0);
     #region GameOver
-
-    bool isfirst = true;
 
     public void Show(string board, int isNewRecord, int score)
     {
-        if (isfirst)
-        {
-            isfirst = false;
-            PosScore = scoreText.transform.position;
-        }
-
         boardKey = board;
 
         bestText.text = PlayerData.Instance.Score.ToString();
@@ -50,16 +40,6 @@ public class GameOver : MonoBehaviour
 
         newRecord.SetActive(isHighScore);
         bestLabel.SetActive(!isHighScore);
-
-        if (isHighScore)
-        {
-            scoreText.transform.Translate(0, -0.5f, 0);
-        }
-        else
-        {
-            //scoreText.transform.Translate(0, -0.5f, 0);
-           scoreText.transform.position = PosScore; 
-        }
 
         gameObject.SetActive(true);
     }

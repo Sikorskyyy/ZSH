@@ -36,10 +36,7 @@ public class PlayerData : MonoBehaviour
         {
             Score = 0;
         }
-
-        //SetScore(0);
-
-        Debug.Log(Score.ToString());
+            
 
         if (PlayerPrefs.HasKey(TIMER_BONUS_KEY))
         {
