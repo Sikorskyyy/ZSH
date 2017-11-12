@@ -11,5 +11,6 @@ required for displaying ads.
   <uses-sdk android:minSdkVersion="14"
       android:targetSdkVersion="19" />
   <application>
+
   </application>
 </manifest>

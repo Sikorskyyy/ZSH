@@ -98,10 +98,10 @@ public class GameBoard : MonoBehaviour
         level = 0;
         Score = 0;
         showAdCounter = AD_COUNTER_CONST;
-        if (isAd)
-        {
-            AdManager.Instance.RequestBanner();
-        }
+        Debug.Log(isAd.ToString());
+
+       
+           
         // isFirst = true;
     }
 
@@ -114,9 +114,11 @@ public class GameBoard : MonoBehaviour
         isAd = PlayerData.Instance.IsAd;
 
         if (isAd)
-        {
-            AdManager.Instance.bannerView.Show();   
+        { 
+            AdManager.Instance.ShowBanner();
         }
+           // AdManager.Instance.bannerView.Show();   
+        
 
         Debug.Log("shwe");
 
@@ -169,7 +171,7 @@ public class GameBoard : MonoBehaviour
     {
         if (isAd)
         {
-            AdManager.Instance.bannerView.Hide();
+            AdManager.Instance.HideBanner();
         
             Debug.Log("hide banner");
         }
@@ -367,7 +369,7 @@ public class GameBoard : MonoBehaviour
             isNewRecord = 1;
         }
 
-        Debug.Log(showAdCounter.ToString());
+      
         if (isAd)
         {
             

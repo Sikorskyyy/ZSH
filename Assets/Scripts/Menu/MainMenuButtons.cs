@@ -1,21 +1,24 @@
 ﻿using System.Collections;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+//using UnityEngine.SceneManagement;
+
 //using UnityEngine.Advertisements;
 
-public class MainMenuButtons : MonoBehaviour {
+public class MainMenuButtons : MonoBehaviour
+{
 
     public string action;
+
     private void Start()
     {		
 
-		if (action == "noAds")
+        if (action == "noAds")
         {
             if (PlayerData.Instance.IsAd)
             {	
                 gameObject.SetActive(false);
             }
-		}
+        }
 			
 		
     }
@@ -43,41 +46,31 @@ public class MainMenuButtons : MonoBehaviour {
             case "records":
                 
                 LiderBoard.OnShowLeaderBoard();
-                Debug.Log("reco");//нихуя не заработает пока я не залью апк норм ключ 
-			break;
+                break;
                
 
-				case "noAds":
-					/*if (APIController.instance == null) {
-						APIController.instance = new APIController ();
-						APIController.instance.Start();
-					}*/
-                
-					APIController.instance.BuyNoAds ();
+            case "noAds":
+					
+                APIController.instance.BuyNoAds();
 
-				break;
+                break;
 
+            case "1001":
+                Application.OpenURL("https://vk.com/mem1001");
+                break;
 
-				/*case "music":
-					if (PlayerPrefs.GetString ("music") != "off") {
-						PlayerPrefs.SetString ("music", "off");
-						m_on.SetActive (false);
-						m_off.SetActive (true);
-					} else {
-						PlayerPrefs.SetString ("music", "on");
-						m_on.SetActive (true);
-						m_off.SetActive (false);
-					}
-				break;*/
-
-				case "rate":
-                Application.OpenURL ("market://details?id=com.QiwiGames.theShaverMystery");
-				break;
+            case "qiwi":
+                Application.OpenURL("https://vk.com/qiwigames");
+                break;
+				
+            case "rate":
+                Application.OpenURL("market://details?id=com.QiwiGames.theShaverMystery");
+                break;
 
 				
-				case "exit":
-					Application.Quit ();
-				break;
+            case "exit":
+                Application.Quit();
+                break;
 
         }   
                 

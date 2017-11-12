@@ -37,6 +37,7 @@ public class PlayerData : MonoBehaviour
             Score = 0;
         }
             
+        LiderBoard.OnAddScoreToLeaderBorad((long)Score);
 
         if (PlayerPrefs.HasKey(TIMER_BONUS_KEY))
         {
@@ -117,7 +118,7 @@ public class PlayerData : MonoBehaviour
         else
         {
             IsAd = true;
-            AdManager.Instance.RequestBanner();
+
         }
     }
 }

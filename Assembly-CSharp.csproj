@@ -51,6 +51,23 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Appodeal\Api\Appodeal.cs" />
+     <Compile Include="Assets\Appodeal\AppodealDemo\AppodealDemo.cs" />
+     <Compile Include="Assets\Appodeal\Common\IAppodealAdsClient.cs" />
+     <Compile Include="Assets\Appodeal\Common\IBannerAdListener.cs" />
+     <Compile Include="Assets\Appodeal\Common\IInterstitialAdListener.cs" />
+     <Compile Include="Assets\Appodeal\Common\INonSkippableVideoAdListener.cs" />
+     <Compile Include="Assets\Appodeal\Common\IPermissionGrantedListener.cs" />
+     <Compile Include="Assets\Appodeal\Common\IRewardedVideoAdListener.cs" />
+     <Compile Include="Assets\Appodeal\Platforms\Android\AndroidAppodealClient.cs" />
+     <Compile Include="Assets\Appodeal\Platforms\Android\AppodealBannerCallbacks.cs" />
+     <Compile Include="Assets\Appodeal\Platforms\Android\AppodealInterstitialCallbacks.cs" />
+     <Compile Include="Assets\Appodeal\Platforms\Android\AppodealNonSkippableVideoCallbacks.cs" />
+     <Compile Include="Assets\Appodeal\Platforms\Android\AppodealPermissionCallbacks.cs" />
+     <Compile Include="Assets\Appodeal\Platforms\Android\AppodealRewardedVideoCallbacks.cs" />
+     <Compile Include="Assets\Appodeal\Platforms\AppodealAdsClientFactory.cs" />
+     <Compile Include="Assets\Appodeal\Platforms\iOS\AppodealAdsClient.cs" />
+     <Compile Include="Assets\Appodeal\Platforms\iOS\AppodealObjCBridge.cs" />
      <Compile Include="Assets\GoogleMobileAds\Api\AdFailedToLoadEventArgs.cs" />
      <Compile Include="Assets\GoogleMobileAds\Api\AdLoader.cs" />
      <Compile Include="Assets\GoogleMobileAds\Api\AdPosition.cs" />
@@ -303,20 +320,27 @@
      <Compile Include="Assets\Scripts\PlayerData\PlayerData.cs" />
      <Compile Include="Assets\Scripts\RandomSpritePicker.cs" />
      <Compile Include="Assets\Scripts\WinMessage.cs" />
+     <None Include="Assets\Plugins\Android\startapp\AndroidManifest.xml" />
      <None Include="Assets\GooglePlayGames\Editor\template-GameInfo.txt" />
      <None Include="Assets\Plugins\Android\gpgs-plugin-support-0.9.42\AndroidManifest.xml" />
+     <None Include="Assets\Movinarc\PackageUninstaller\README.txt" />
      <None Include="Assets\GooglePlayGames\Editor\template-AndroidManifest.txt" />
+     <None Include="Assets\Appodeal\SampleAndroidManifest.xml" />
      <None Include="Assets\GooglePlayGames\Plugins\Android\GooglePlayGamesManifest.plugin\AndroidManifest.xml" />
      <None Include="Assets\GooglePlayGames\Editor\m2repository\com\google\games\gpgs-plugin-support\maven-metadata.xml" />
      <None Include="Assets\Plugins\Android\gpgs-plugin-support-0.9.42\res\values\values.xml" />
+     <None Include="Assets\Plugins\Android\appodeal\AndroidManifest.xml" />
      <None Include="Assets\Plugins\UnityPurchasing\script\link.xml" />
      <None Include="Assets\Plugins\Android\GoogleMobileAdsPlugin\AndroidManifest.xml" />
      <None Include="Assets\GooglePlayGames\Editor\template-Constants.txt" />
      <None Include="Assets\GooglePlayGames\Editor\GPGSDependencies.xml" />
+     <None Include="Assets\Plugins\Android\yandex-metrica\AndroidManifest.xml" />
+     <None Include="Assets\Plugins\Android\adcolony\AndroidManifest.xml" />
      <None Include="Assets\Plugins\Android\gpgs-plugin-support-0.9.42\res\values-v14\values-v14.xml" />
      <None Include="Assets\Plugins\Android\gpgs-plugin-support-0.9.42\R.txt" />
      <None Include="Assets\GoogleMobileAds\Editor\GoogleMobileAdsDependencies.xml" />
      <None Include="Assets\Plugins\Android\gpgs-plugin-support-0.9.42\res\values-v11\values-v11.xml" />
+     <None Include="Assets\Plugins\Android\inmobi\AndroidManifest.xml" />
      <None Include="Assets\PlayServicesResolver\Editor\play-services-resolver_v1.2.59.0.txt" />
  <Reference Include="UnityEngine.Advertisements">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Advertisements/UnityEngine.Advertisements.dll</HintPath>
@@ -374,6 +398,9 @@
  </Reference>
  <Reference Include="winrt">
  <HintPath>C:/Users/sikorskyyy/Documents/GitHub/ZSH/Assets/Plugins/UnityPurchasing/winrt/winrt.dll</HintPath>
+ </Reference>
+ <Reference Include="Ionic.Zip.Unity">
+ <HintPath>C:/Users/sikorskyyy/Documents/GitHub/ZSH/Assets/Plugins/Ionic.Zip.Unity.dll</HintPath>
  </Reference>
   </ItemGroup>
   <ItemGroup>

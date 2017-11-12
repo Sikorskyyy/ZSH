@@ -148,7 +148,7 @@ e9bdabf9265d758d56f01bb188916fa8 UnityEngine.Networking.dll:UnityEngine.Networki
 86381191d569b8d072ccc68f586b851d Assembly-CSharp.dll:.MainMenuButtons
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.OnEnterStateBehaviour
 05524b8f659e7bfe5756d1335fec24ba UnityStore.dll:UnityEngine.Store.MainThreadDispatcher
-0ebd899800f2e02807b6c15877c97adf Assembly-CSharp.dll:.GameOver
+30eb7f7a4a9ad334d46d22351847061e Assembly-CSharp.dll:.GameOver
 b2e8c14cae8c2941426b256b4711b026 Assembly-CSharp.dll:.InfiniteScrollListItem
 bc68edb0af574bf79f9550ead8ebae5c UnityEngine.HoloLens.dll:UnityEngine.Audio.AudioSpatializerMicrosoft
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.HoloLens.dll:UnityEngine.EventSystems.HoloLensInput
@@ -165,3 +165,4 @@ f9018bec5c8137d9919d460ea608e2bd Assembly-CSharp.dll:.Card
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.Advertisements.dll:UnityEngine.Advertisements.CallbackExecutor
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.Advertisements.dll:UnityEngine.Advertisements.Editor.Placeholder
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp-firstpass.dll:.IAPDemo
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.AppodealDemo
