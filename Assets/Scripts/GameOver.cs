@@ -25,6 +25,8 @@ public class GameOver : MonoBehaviour
 
     [SerializeField] GameObject Accost;
 
+    [SerializeField] GameObject popup;
+
     private bool isHighScore;
     private int score;
     private string boardKey;
@@ -94,6 +96,30 @@ public class GameOver : MonoBehaviour
             //Accost.SetActive(false);
             var AccostText = Accost.GetComponent<Text>();
             AccostText.text = "))))))0)))0))0)\n попробуй еще раз";
+        }
+
+        //popup
+        var key = "popup";
+
+        var countP = 0;
+
+        if (!PlayerPrefs.HasKey(key))
+        {
+            PlayerPrefs.SetInt(key, 0);
+        }
+        else
+        {
+           countP  = PlayerPrefs.GetInt(key);
+           countP++;
+           PlayerPrefs.SetInt(key, countP);
+           Debug.Log(countP.ToString());
+        }
+
+        if(countP == 10)
+        {
+            popup.SetActive(true);
+            countP = -500;
+            PlayerPrefs.SetInt(key, countP);
         }
 
 

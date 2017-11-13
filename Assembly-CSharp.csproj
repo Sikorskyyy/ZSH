@@ -318,6 +318,7 @@
      <Compile Include="Assets\Scripts\Menu\WatchButtons.cs" />
      <Compile Include="Assets\Scripts\PlayerData\Encryptor.cs" />
      <Compile Include="Assets\Scripts\PlayerData\PlayerData.cs" />
+     <Compile Include="Assets\Scripts\popup\Popup.cs" />
      <Compile Include="Assets\Scripts\RandomSpritePicker.cs" />
      <Compile Include="Assets\Scripts\WinMessage.cs" />
      <None Include="Assets\Plugins\Android\startapp\AndroidManifest.xml" />
@@ -369,6 +370,9 @@
  <Reference Include="UnityEngine.Purchasing">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityPurchasing/UnityEngine.Purchasing.dll</HintPath>
  </Reference>
+ <Reference Include="Ionic.Zip.Unity">
+ <HintPath>C:/Users/sikorskyyy/Documents/GitHub/ZSH/Assets/Plugins/Ionic.Zip.Unity.dll</HintPath>
+ </Reference>
  <Reference Include="ChannelPurchase">
  <HintPath>C:/Users/sikorskyyy/Documents/GitHub/ZSH/Assets/Plugins/UnityChannel/ChannelPurchase.dll</HintPath>
  </Reference>
@@ -398,9 +402,6 @@
  </Reference>
  <Reference Include="winrt">
  <HintPath>C:/Users/sikorskyyy/Documents/GitHub/ZSH/Assets/Plugins/UnityPurchasing/winrt/winrt.dll</HintPath>
- </Reference>
- <Reference Include="Ionic.Zip.Unity">
- <HintPath>C:/Users/sikorskyyy/Documents/GitHub/ZSH/Assets/Plugins/Ionic.Zip.Unity.dll</HintPath>
  </Reference>
   </ItemGroup>
   <ItemGroup>

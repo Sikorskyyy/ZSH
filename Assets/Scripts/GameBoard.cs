@@ -132,24 +132,24 @@ public class GameBoard : MonoBehaviour
             showAdCounter--;
         }
 
+        if (PlayerData.Instance.TipsCount >= 3)
+        {
+            TipsCount = 3;
+            PlayerData.Instance.SetTipsCount(-3);
+        }
+        else
+        {
+            TipsCount = PlayerData.Instance.TipsCount;
+            PlayerData.Instance.SetTipsCount(-TipsCount);
+        }
+
         if (isFirst)
         {
-            if (PlayerData.Instance.TipsCount >= 3)
-            {
-                TipsCount = 3;
-                PlayerData.Instance.SetTipsCount(-3);
-            }
-            else
-            {
-                TipsCount = PlayerData.Instance.TipsCount;
-                PlayerData.Instance.SetTipsCount(-TipsCount);
-            }
                 
-
-            if (PlayerData.Instance.TimerBonusCount >= 3)
+            if (PlayerData.Instance.TimerBonusCount >= 4)
             {
-                TimerBonusCount = 3;
-                PlayerData.Instance.SetTimerBonusCount(-3);
+                TimerBonusCount = 4;
+                PlayerData.Instance.SetTimerBonusCount(-4);
             }
             else
             {

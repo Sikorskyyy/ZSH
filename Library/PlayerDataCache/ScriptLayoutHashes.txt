@@ -128,6 +128,7 @@ c2275a8bfbb9f9942cad75ecdfded41d UnityEngine.HoloLens.dll:UnityEngine.VR.WSA.Spa
 835b80357669dda59ee8abdd6cfff88b Assembly-CSharp.dll:.InfiniteScrollListManager
 a0eeac879803feb2d9a7308f683bb01b Assembly-CSharp.dll:.EventByAnimatorStateManager
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.NoAdsButton
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.AppodealDemo
 fc1e0f4d8439d9928083474691511a13 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkAnimator
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.Networking.dll:UnityEngine.Networking.NetworkBehaviour
 60b2bb652410a5867a5ab9a01cd38461 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkDiscovery
@@ -148,7 +149,7 @@ e9bdabf9265d758d56f01bb188916fa8 UnityEngine.Networking.dll:UnityEngine.Networki
 86381191d569b8d072ccc68f586b851d Assembly-CSharp.dll:.MainMenuButtons
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.OnEnterStateBehaviour
 05524b8f659e7bfe5756d1335fec24ba UnityStore.dll:UnityEngine.Store.MainThreadDispatcher
-30eb7f7a4a9ad334d46d22351847061e Assembly-CSharp.dll:.GameOver
+0ce5ef1fe12080d738cd35eca2de0613 Assembly-CSharp.dll:.GameOver
 b2e8c14cae8c2941426b256b4711b026 Assembly-CSharp.dll:.InfiniteScrollListItem
 bc68edb0af574bf79f9550ead8ebae5c UnityEngine.HoloLens.dll:UnityEngine.Audio.AudioSpatializerMicrosoft
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.HoloLens.dll:UnityEngine.EventSystems.HoloLensInput
@@ -165,4 +166,4 @@ f9018bec5c8137d9919d460ea608e2bd Assembly-CSharp.dll:.Card
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.Advertisements.dll:UnityEngine.Advertisements.CallbackExecutor
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.Advertisements.dll:UnityEngine.Advertisements.Editor.Placeholder
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp-firstpass.dll:.IAPDemo
-05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.AppodealDemo
+2e2fb03a7ce9bbb0271d98031d61f345 Assembly-CSharp.dll:.Popup
